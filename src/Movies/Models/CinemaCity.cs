@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MongoDB.Bson;
 
 namespace Movies.Models
@@ -6,5 +7,6 @@ namespace Movies.Models
     {
         public ObjectId Id { get; set; }
         public string Name { get; set; }
+        public ICollection<MovieHall> Halls { get; set; }
     }
 }
