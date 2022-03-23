@@ -13,6 +13,22 @@ services:
     volumes:
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
+  mongo-express:
+    image: mongo-express
+    environment:
+        - ME_CONFIG_MONGODB_SERVER=mongodb
+        - ME_CONFIG_MONGODB_PORT=27017
+        - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+        - ME_CONFIG_MONGODB_AUTH_DATABASE=MyDb
+        - ME_CONFIG_MONGODB_AUTH_USERNAME=MyUser
+        - ME_CONFIG_MONGODB_AUTH_PASSWORD=MyPassword
+        - ME_CONFIG_BASICAUTH_USERNAME=MyUser
+        - ME_CONFIG_BASICAUTH_PASSWORD=MyPassword
+    depends_on:
+        - mongodb
+    ports:
+      - "8888:8081"
+
   Movies:
     image: ${DOCKER_REGISTRY-}movies
     build:
