@@ -31,6 +31,7 @@ namespace Movies
 
             services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(Configuration.GetConnectionString("MongoDb")));
             services.AddTransient<IRepository<CinemaCity>, CinemaCityRepository>();
+            services.AddTransient<IRepository<Movie>, MoviesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
