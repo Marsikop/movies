@@ -60,7 +60,8 @@ namespace Movies.Repositories
         {
             var filter = Builders<CinemaCity>.Filter.Eq(c => c.Id, objectId);
             var update = Builders<CinemaCity>.Update
-                .Set(c => c.Name, obj.Name);
+                .Set(c => c.Name, obj.Name)
+                .Set(c => c.Halls, obj.Halls);
             var result = await _cinema.UpdateOneAsync(filter, update);
 
             return result.ModifiedCount == 1;
