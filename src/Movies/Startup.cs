@@ -33,6 +33,7 @@ namespace Movies
             services.AddTransient<IRepository<CinemaCity>, CinemaCityRepository>();
             services.AddTransient<IRepository<Movie>, MoviesRepository>();
             services.AddTransient<IRepository<MovieScreening>, MovieScreeningsRepository>();
+            services.AddTransient<IRepository<Order>, OrdersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
