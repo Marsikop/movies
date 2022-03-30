@@ -13,7 +13,6 @@ namespace Movies.Repositories
         // Read
         Task<T> Get(ObjectId objectId);
         Task<IEnumerable<T>> Get();
-        Task<IEnumerable<T>> GetByName(string name);
 
         // Update
         Task<bool> Update(ObjectId objectId, T obj);
