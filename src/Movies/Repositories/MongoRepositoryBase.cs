@@ -22,14 +22,14 @@ namespace Movies.Repositories
             Collection = collection;
         }
 
-        public async Task<ObjectId> Create(T obj)
+        public virtual async Task<ObjectId> Create(T obj)
         {
             await Collection.InsertOneAsync(obj);
 
             return obj.Id;
         }
 
-        public async Task<bool> Delete(ObjectId objectId)
+        public virtual async Task<bool> Delete(ObjectId objectId)
         {
             var filter = Builders<T>.Filter.Eq(c => c.Id, objectId);
             var result = await Collection.DeleteOneAsync(filter);
@@ -37,7 +37,7 @@ namespace Movies.Repositories
             return result.DeletedCount == 1;
         }
 
-        public Task<T> Get(ObjectId objectId)
+        public virtual Task<T> Get(ObjectId objectId)
         {
             var filter = Builders<T>.Filter.Eq(c => c.Id, objectId);
             var result = Collection.Find(filter).FirstOrDefaultAsync();
@@ -45,14 +45,14 @@ namespace Movies.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<T>> Get()
+        public virtual async Task<IEnumerable<T>> Get()
         {
             var results = await Collection.Find(_ => true).ToListAsync();
 
             return results;
         }
 
-        public async Task<bool> Update(ObjectId objectId, T obj)
+        public virtual async Task<bool> Update(ObjectId objectId, T obj)
         {
             var filter = Builders<T>.Filter.Eq(c => c.Id, objectId);
             var update = CreateUpdateMapping(obj);
