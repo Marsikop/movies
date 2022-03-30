@@ -34,5 +34,7 @@ services:
     build:
       context: .
       dockerfile: Movies/Dockerfile
+    ports:
+      - "9000:80"
     depends_on:
       - mongodb

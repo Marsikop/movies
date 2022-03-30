@@ -2,9 +2,8 @@ using MongoDB.Bson;
 
 namespace Movies.Models
 {
-    public class Movie
+    public class Movie : MongoObject
     {
-        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int LengthInMinutes { get; set; }

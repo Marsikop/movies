@@ -8,37 +8,13 @@ namespace Movies.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CinemasController : ControllerBase
+    public class CinemasController : MongoBasicController<CinemaCity>
     {
-        private readonly IRepository<CinemaCity> _repository;
+        private readonly CinemaCityRepository _repository;
 
-        public CinemasController(IRepository<CinemaCity> repository)
+        public CinemasController(IRepository<CinemaCity> repository) : base(repository)
         {
-            _repository = repository;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CinemaCity obj)
-        {
-            var id = await _repository.Create(obj);
-
-            return new JsonResult(id.ToString());
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
-        {
-            var cinema = await _repository.Get(ObjectId.Parse(id));
-
-            return new JsonResult(cinema);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var cinemas = await _repository.Get();
-
-            return new JsonResult(cinemas);
+            _repository = (CinemaCityRepository)repository;
         }
 
         [HttpGet("ByName/{name}")]
@@ -47,22 +23,6 @@ namespace Movies.Controllers
             var cinemas = await _repository.GetByName(name);
 
             return new JsonResult(cinemas);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, CinemaCity obj)
-        {
-            var result = await _repository.Update(ObjectId.Parse(id), obj);
-
-            return new JsonResult(result);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var result = await _repository.Delete(ObjectId.Parse(id));
-
-            return new JsonResult(result);
         }
     }
 }

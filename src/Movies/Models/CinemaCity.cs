@@ -3,9 +3,8 @@ using MongoDB.Bson;
 
 namespace Movies.Models
 {
-    public class CinemaCity
+    public class CinemaCity : MongoObject
     {
-        public ObjectId Id { get; set; }
         public string Name { get; set; }
         public ICollection<MovieHall> Halls { get; set; }
     }
