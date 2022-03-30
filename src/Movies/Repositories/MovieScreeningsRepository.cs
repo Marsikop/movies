@@ -42,8 +42,6 @@ namespace Movies.Repositories
 
         public override async Task<ObjectId> Create(MovieScreening obj)
         {
-            var result = await base.Create(obj);
-
             var cinema = await _cinemaCityRepository.Get(ObjectId.Parse(obj.CinemaCityId));
             var seatsCount = cinema.Halls.Where(h => h.HallIndex == obj.MovieHallIndex).First().SeatsCount;
 
@@ -53,7 +51,7 @@ namespace Movies.Repositories
                 obj.Seats.Add(new Seat { SeatIndex = i + 1, Status = SeatStatus.Free });
             }
 
-            await Update(result, obj);
+            var result = await base.Create(obj);
 
             return result;
         }
