@@ -13,6 +13,11 @@ namespace Movies.Repositories
 
         }
 
+        protected override IMongoCollection<CinemaCity> GetMongoCollection(IMongoDatabase database)
+        {
+            return database.GetCollection<CinemaCity>(nameof(CinemaCity));
+        }
+
         protected override UpdateDefinition<CinemaCity> CreateUpdateMapping(CinemaCity obj)
         {
             var update = Builders<CinemaCity>.Update
@@ -28,6 +33,27 @@ namespace Movies.Repositories
             var results = await Collection.Find(filter).ToListAsync();
 
             return results;
+        }
+
+        public async Task<bool> CreateHall(ObjectId cinemaId, MovieHall hall)
+        {
+            var filter = Builders<CinemaCity>.Filter.Eq(c => c.Id, cinemaId);
+            var filterResult = await Collection.Find(filter).FirstOrDefaultAsync();
+            var halls = ((CinemaCity)filterResult).Halls;
+
+            if (halls == null)
+            {
+                halls = new List<MovieHall>();
+            }
+
+            halls.Add(hall);
+
+            var update = Builders<CinemaCity>.Update
+                .Set(c => c.Halls, halls);
+
+            var result = await Collection.UpdateOneAsync(filter, update);
+
+            return result.ModifiedCount == 1;
         }
     }
 }

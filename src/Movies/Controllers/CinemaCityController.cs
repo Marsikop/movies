@@ -24,5 +24,13 @@ namespace Movies.Controllers
 
             return new JsonResult(cinemas);
         }
+
+        [HttpPut("Halls")]
+        public async Task<IActionResult> CreateHall(string id, MovieHall hall)
+        {
+            var result = await _repository.CreateHall(ObjectId.Parse(id), hall);
+
+            return new JsonResult(result);
+        }
     }
 }

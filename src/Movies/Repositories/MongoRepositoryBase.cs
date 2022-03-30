@@ -11,12 +11,13 @@ namespace Movies.Repositories
 	{
         protected readonly IMongoCollection<T> Collection;
 
+        protected abstract IMongoCollection<T> GetMongoCollection(IMongoDatabase database);
         protected abstract UpdateDefinition<T> CreateUpdateMapping(T obj);
 
         public MongoRepositoryBase(IMongoClient client)
         {
             var database = client.GetDatabase("MyDb");
-            var collection = database.GetCollection<T>(nameof(T));
+            var collection = GetMongoCollection(database);
 
             Collection = collection;
         }
