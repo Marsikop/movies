@@ -13,6 +13,11 @@ namespace Movies.Repositories
             
         }
 
+        protected override IMongoCollection<Movie> GetMongoCollection(IMongoDatabase database)
+        {
+            return database.GetCollection<Movie>(nameof(Movie));
+        }
+
         protected override UpdateDefinition<Movie> CreateUpdateMapping(Movie obj)
         {
             var update = Builders<Movie>.Update
