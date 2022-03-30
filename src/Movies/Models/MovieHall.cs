@@ -9,6 +9,6 @@ namespace Movies.Models
         public int HallIndex { get; set; }
         public int SeatsCount { get; set; }
         // public ICollection<ObjectId> Screenings { get; set; }
-        public Dictionary<DateTime, ICollection<ObjectId>> Screenings { get; set; }   
+        // public Dictionary<DateTime, ICollection<ObjectId>> Screenings { get; set; }   
     }
 }

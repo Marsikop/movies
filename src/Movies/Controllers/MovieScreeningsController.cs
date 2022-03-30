@@ -16,5 +16,13 @@ namespace Movies.Controllers
         {
             _repository = (MovieScreeningsRepository)repository;
         }
+
+        [HttpGet("Filter/{movie?}/{cinema?}")]
+        public async Task<IActionResult> Filter(string movie = null, string cinema = null)
+        {
+            var result = await _repository.Filter(movieName: movie, cinemaName: cinema);
+
+            return new JsonResult(result);
+        }
     }
 }
