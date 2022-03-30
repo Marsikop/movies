@@ -8,7 +8,7 @@ namespace Movies.Repositories
 {
     public class CinemaCityRepository : MongoRepositoryBase<CinemaCity>
     {
-        public CinemaCityRepository(MongoClient client) : base(client)
+        public CinemaCityRepository(IMongoClient client) : base(client)
         {
 
         }
